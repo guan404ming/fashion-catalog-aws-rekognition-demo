@@ -7,14 +7,14 @@ from pathlib import Path
 
 
 #S3 location for images
-s3_bucket = 'clothing-recognition' # use the s3 bucket name
+s3_bucket = 'df-20240502' # use the s3 bucket name｀
 s3_key_path_manifest_file = 'manifest/'
 s3_key_path_images = 'images/'
 s3_path = 's3://' + s3_bucket  + '/' + s3_key_path_images
 s3 = boto3.resource('s3')
 
 #Local file information
-local_path = Path.cwd()
+local_path = str(Path.cwd())
 coco_manifest = 'deepfashion2.json'
 coco_json_file = local_path + coco_manifest
 job_name = 'deepfashion2'
@@ -113,14 +113,3 @@ for im in images_dict.values():
             json.dump(im.__dict__,outfile)
             outfile.write('\n')
             outfile.close()
-
-# Upload manifest file to S3 bucket.
-print ('Uploading Custom Labels manifest file to S3 bucket')
-print('Uploading'  + local_path + cl_manifest_file + ' to ' + s3_key_path_manifest_file)
-print(s3_bucket)
-s3 = boto3.resource('s3')
-s3.Bucket(s3_bucket).upload_file(local_path + cl_manifest_file, s3_key_path_manifest_file + cl_manifest_file)
-
-# Print S3 URL to manifest file,
-print ('S3 URL Path to manifest file. ')
-print('\033[1m s3://' + s3_bucket + '/' + s3_key_path_manifest_file + cl_manifest_file + '\033[0m')

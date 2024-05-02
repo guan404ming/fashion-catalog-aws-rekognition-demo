@@ -3,11 +3,11 @@ import os
 from PIL import Image
 import numpy as np
 
-num_images = 30000 # number of images
+num_images = 4073 # number of images
 sub_index = 0 # the index of ground truth instance
-image_path = 'images\\annotation\\'
-json_path = 'images\\dataset\\'
-json_name = 'deepfashion2.json'
+image_path = 'images/annotation/'
+json_path = 'images/dataset/'
+json_name_ = 'deepfashion2.json'
 
 dataset = {
     "info": {},
@@ -235,5 +235,5 @@ for num in range(1,num_images+1):
                         'segmentation': seg,
                     })
 
-with open(json_name, 'w') as f:
+with open(json_name_, 'w') as f:
   json.dump(dataset, f)
